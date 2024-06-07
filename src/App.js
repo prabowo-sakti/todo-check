@@ -1,23 +1,11 @@
 import { useState } from "react";
-const listItems = [
-  {
-    id: 1,
-    title: "Ngoding",
-    done: false,
-  },
 
-  {
-    id: 2,
-    title: "Makan",
-    done: false,
-  },
-];
 function App() {
-  const [todo, setTodo] = useState(listItems);
+  const [todo, setTodo] = useState([{}]);
   function handleSubmit(title) {
     if (title.trim() !== "") {
       const newNote = {
-        id: new Date().getHours(),
+        id: new Date().getSeconds(),
         title,
         done: false,
       };
@@ -79,9 +67,11 @@ function CheckList({ todo, onToggleDone }) {
   return (
     <div className="list">
       <ul>
-        {todo.map((item) => (
-          <Item key={item.id} item={item} onToggleDone={onToggleDone} />
-        ))}
+        {todo.length > 0
+          ? todo.map((item) => (
+              <Item key={item.id} item={item} onToggleDone={onToggleDone} />
+            ))
+          : null}
       </ul>
     </div>
   );
@@ -89,18 +79,22 @@ function CheckList({ todo, onToggleDone }) {
 
 function Item({ item, onToggleDone }) {
   return (
-    <li key={item.id}>
-      <input
-        type={"checkbox"}
-        id={item.id}
-        checked={item.done}
-        onChange={() => onToggleDone(item.id)}
-        required
-      />
-      <span style={{ textDecoration: item.done ? "line-through" : "" }}>
-        {item.title}
-      </span>
-      <button>❌</button>
+    <li>
+      {item.title ? (
+        <>
+          <input
+            type={"checkbox"}
+            id={item.id}
+            checked={item.done}
+            onChange={() => onToggleDone(item.id)}
+            required
+          />
+          <span style={{ textDecoration: item.done ? "line-through" : "" }}>
+            {item.title}
+          </span>
+          <button>❌</button>
+        </>
+      ) : null}
     </li>
   );
 }
