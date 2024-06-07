@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 function App() {
-  const [todo, setTodo] = useState([{}]);
+  const [todo, setTodo] = useState([]);
   function handleSubmit(title) {
     if (title.trim() !== "") {
       const newNote = {
