@@ -1,4 +1,8 @@
 import { useState } from "react";
+import Logo from "./components/Logo";
+import Form from "./components/Form";
+import CheckList from "./components/Checklist";
+import Stats from "./components/Stats";
 
 function App() {
   const [todo, setTodo] = useState([]);
@@ -20,90 +24,32 @@ function App() {
       )
     );
   }
+
+  function DeleteItem(id) {
+    setTodo((removeItem) => removeItem.filter((item) => item.id !== id));
+    console.log(todo);
+  }
+
+  function HapusSemuaItem() {
+    const confirm = window.confirm(
+      "Apakah kamu yakin ingin menghapus semua tugas?"
+    );
+    if (confirm) {
+      setTodo([]);
+    }
+  }
   return (
     <div className="app">
       <Logo />
       <Form onSubmit={handleSubmit} />
-      <CheckList todo={todo} onToggleDone={handleToggleDone} />
-      <Stats />
+      <CheckList
+        todo={todo}
+        onToggleDone={handleToggleDone}
+        DeleteItem={DeleteItem}
+        onClearItems={HapusSemuaItem}
+      />
+      <Stats items={todo} />
     </div>
-  );
-}
-
-function Logo() {
-  return <span className="logo">📝 Todo Ceklis ✅</span>;
-}
-
-function Form({ onSubmit }) {
-  const [title, setTitle] = useState("");
-
-  function handleChange(e) {
-    setTitle(e.target.value);
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    onSubmit(title);
-    setTitle("");
-  }
-  return (
-    <>
-      <form className="add-form" onSubmit={handleSubmit}>
-        <h3>Ada yang mau kamu catat? 🤔</h3>
-        <input
-          type="text"
-          name="title"
-          id=""
-          value={title}
-          onChange={handleChange}
-        />
-        <button>add</button>
-      </form>
-    </>
-  );
-}
-
-function CheckList({ todo, onToggleDone }) {
-  return (
-    <div className="list">
-      <ul>
-        {todo.length > 0
-          ? todo.map((item) => (
-              <Item key={item.id} item={item} onToggleDone={onToggleDone} />
-            ))
-          : null}
-      </ul>
-    </div>
-  );
-}
-
-function Item({ item, onToggleDone }) {
-  return (
-    <li>
-      {item.title ? (
-        <>
-          <input
-            type={"checkbox"}
-            id={item.id}
-            checked={item.done}
-            onChange={() => onToggleDone(item.id)}
-            required
-          />
-          <span style={{ textDecoration: item.done ? "line-through" : "" }}>
-            {item.title}
-          </span>
-          <button>❌</button>
-        </>
-      ) : null}
-    </li>
-  );
-}
-
-function Stats() {
-  return (
-    <footer className="stats">
-      <span>🗒️ Kamu punya x catatan dan baru x dichecklist(x%)</span>
-    </footer>
   );
 }
 

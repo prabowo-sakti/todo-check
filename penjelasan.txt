@@ -1,0 +1,12 @@
+ok, aku ingin menjelaskan pemahaman yang aku dapat dari kode ini, jadi mohon koreksi apabila pemahaman saya ada yang salah atau keliru.
+
+pada komponen app, disana ada beberapa kode yang terdiri state dan 2 event handler. mari saya jelaskan secara rinci, jadi ada state todo yang dimana
+nilai defaultnya merupakan array kosong.
+dibawahnya memiliki event handler handleSubmit yang dimana memiliki kondisional yaitu jadi singkatnya adalah blok kode if, akan menambahkan task yang sudah diseleksi, yang dimana ketika tidak ada spasi maka akan dijalankan, karena jika string kosong dan string kosong akan bernilai false, yang dimana kedua nilai dan tipe datanya sama, dan tidak akan menampilkan task yang berisikan hanya string kosong.
+
+dan kode if akan menampilkan task walaupun karakter apapun akan ditambahkan, karena title merupakan bukan string kosong, dan akan dicek dengan string kosong, tentu aja tidak sama dan ini akan bernilai true, dan akan menjalanka blok kode if dan juga menampilkan task apapun itu walaupun karakter simbo
+ mari kita ke variabel newNote yang berisikan object.
+ 
+ state todo diperbarui  menjadi array menggunakan spread opeator dan menginisialisasikan newNote untuk diperbarui ke state todo.
+ 
+ 
